@@ -18,7 +18,7 @@ h1{
     font-style: italic;
 }
 h2{
-    background-color: bisque;
+    background-color: rgb(255, 211, 227);
     font-size: 20px;
     color: black;
     margin-bottom: 16px;
@@ -34,6 +34,8 @@ h2{
     margin-left: auto;
     border: 1px solid #ebebeb;
     box-shadow: 0 1px 20px 0 rgba(0,0,0,0.1);
+    background-color: rgb(255, 237, 243);
+
 }
 .title-box{
     text-align:right;
