@@ -46,16 +46,16 @@ const onCreate=useCallback(()=>{
     username,
     email
   }
-setUsers(users.concat(user));
+setUsers(users=>users.concat(user));
 setInputs({
   username:' ',
   email:' '
 })
   nextId.current += 1;
-}, [users,username,email]);
+}, [username,email]);
 const onRemove=useCallback(
   id=>{
-  setUsers(users.filter(user=>user.id!=id));
+  setUsers(users=>users.filter(user=>user.id!=id));
 }, [users]);
 const onToggle = useCallback(id => {
   setUsers(
