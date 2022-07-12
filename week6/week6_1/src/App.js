@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState,useCallback } from "react";
 import UserList from "./UserList";
 import CreateUser from "./CreateUser";
 function App() {
@@ -8,32 +8,39 @@ function App() {
     email: ' '
   });
   const {username,email}=inputs;
-  const onChange=e=>{
-    const {name,value}=e.target;
+  const onChange=useCallback(
+    e=>{
+       const {name,value}=e.target;
     setInputs({
       ...inputs,
       [name]:value
     });
-  };
+  },
+  [inputs]
+  );
+   
   const [users,setUsers]=useState([
     {
         id: 1,
         username: 'sookmyung',
-        email: 'sookmyung@gmail.com'
+        email: 'sookmyung@gmail.com',
+        active: true
     },
     {
         id: 2,
         username: 'mutsa',
-        email: 'mutsa@gmail.com'
+        email: 'mutsa@gmail.com',
+        active:false
     },
     {
         id: 3,
         username: 'nana',
-        email: 'nana@gmail.com'
+        email: 'nana@gmail.com',
+        active: false
     },
 ]);
 const nextId=useRef(4);
-const onCreate=()=>{
+const onCreate=useCallback(()=>{
   const user={
     id: nextId.current,
     username,
@@ -45,10 +52,18 @@ setInputs({
   email:' '
 })
   nextId.current += 1;
-}
-const onRemove=id=>{
+}, [users,username,email]);
+const onRemove=useCallback(
+  id=>{
   setUsers(users.filter(user=>user.id!=id));
-}
+}, [users]);
+const onToggle = useCallback(id => {
+  setUsers(
+    users.map(user=>
+      user.id === id ? { ...user, active: !user.active } : user
+    )
+  );
+},[users]);
   return (
     <>
       <CreateUser
@@ -57,7 +72,7 @@ const onRemove=id=>{
         onChange={onChange}
         onCreate={onCreate}
       />
-      <UserList users={users} onRemove={onRemove} />
+      <UserList users={users} onRemove={onRemove} onToggle={onToggle} />
     </>
   );
 }
