@@ -5,9 +5,10 @@ import WhoAmI from "./pages/Whoami";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Menubar />}></Route>
-      <Route path="/home" element={<Home />}></Route>
-      <Route path="/whoami" element={<WhoAmI />}></Route>
+      <Route path="/" element={<Menubar />}>
+        <Route path="/home" element={<Home />}></Route>
+        <Route path="/whoami" element={<WhoAmI />}></Route>
+      </Route>
     </Routes>
   );
 }
